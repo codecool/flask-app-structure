@@ -28,9 +28,9 @@ def create_app(db_uri='any'):
     app.config.from_object('myapp.config')
     app.config.from_pyfile(os.path.join(app.instance_path, 'config.py'))
     if db_uri == 'Test':
-        init_engine(app.config['TEST_DATABASE_URL'])
+        init_engine(app.config['TEST_DATABASE_URI'])
     else:
-        init_engine(app.config['DATABASE_URL'])
+        init_engine(app.config['DATABASE_URI'])
     #Register Blueprints
     app.register_blueprint(main_blueprint)
     app.register_blueprint(user_blueprint, url_prefix="/users")
