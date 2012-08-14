@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+
+		<title>{% block title %} base {% endblock %}</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Manav Goel" />
+
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>Heading</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div id="content">
+				{% block content %}
+				{% endblock %}
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
