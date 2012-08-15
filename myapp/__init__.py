@@ -2,7 +2,6 @@ import os
 import logging
 
 from flask import Flask, render_template, abort
-from sqlalchemy import create_engine
 from flask.ext.login import LoginManager
 from flaskext.bcrypt import Bcrypt
 from flaskext.openid import OpenID
@@ -25,16 +24,19 @@ assets = Environment()
 def create_app(db_uri='any'):
 
     app = Flask(__name__)
-    app.config.from_object('myapp.config')
+    app.config.from_object('myapp.default_config')
     app.config.from_pyfile(os.path.join(app.instance_path, 'config.py'))
+    
     if db_uri == 'Test':
         init_engine(app.config['TEST_DATABASE_URI'])
     else:
         init_engine(app.config['DATABASE_URI'])
+        
     #Register Blueprints
     app.register_blueprint(main_blueprint)
     app.register_blueprint(user_blueprint, url_prefix="/users")
 
+    #App logging
     app.logger.setLevel(logging.WARNING)
     logger_handler = logging.FileHandler(os.path.join(app.config['LOG_LOCATION'],
                                                       'app_errors.log'))
@@ -57,14 +59,21 @@ def create_app(db_uri='any'):
         app.logger.exception(exception)
         return "Some Internal error has taken place."
 
-
+    
+    #Extensions registration
     bcrypt.init_app(app)
     login_manager.setup_app(app)
     login_manager.login_view = 'users.login'
     assets.init_app(app)
 
-    css = Bundle('base.css', 'content.css')
+    #CSS assets registration
+    css = Bundle('base.css')
     assets.register('css_all', css)
+    
+    #JS assets registration
+    js = Bundle('base.js')
+    assets.register('js_all', js)
+    
     
     return app
 
