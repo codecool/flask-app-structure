@@ -5,7 +5,7 @@ from flask import Blueprint, render_template
 
 mod = Blueprint('home', __name__,
                 template_folder='templates',
-                static_foler='static')
+                static_folder='static')
 
 
 @mod.route('/')

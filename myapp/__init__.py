@@ -10,7 +10,7 @@ from flask.ext.assets import Environment, Bundle
 
 from .database import init_engine, init_db, db_session
 from .models import User, bcrypt
-from .utils import q
+#from .utils import q
 
 from .home.views import mod as main_blueprint
 from .users.views import mod as user_blueprint, oid
