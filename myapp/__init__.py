@@ -3,9 +3,9 @@ import logging
 
 from flask import Flask, render_template, abort
 from flask.ext.login import LoginManager
-from flaskext.bcrypt import Bcrypt
-from flaskext.openid import OpenID
-from flaskext.script import Manager
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.openid import OpenID
+from flask.ext.script import Manager
 from flask.ext.assets import Environment, Bundle
 
 from .database import init_engine, init_db, db_session
@@ -13,7 +13,7 @@ from .models import User, bcrypt
 #from .utils import q
 
 from .home.views import mod as main_blueprint
-from .users.views import mod as user_blueprint, oid
+from .users.views import mod as user_blueprint
 
 
 login_manager = LoginManager()
@@ -37,13 +37,13 @@ def create_app(db_uri='any'):
     app.register_blueprint(user_blueprint, url_prefix="/users")
 
     #App logging
-    app.logger.setLevel(logging.WARNING)
-    logger_handler = logging.FileHandler(os.path.join(app.config['LOG_LOCATION'],
-                                                      'app_errors.log'))
-    formatter = logging.Formatter('%(asctime)s  %(levelname)s - %(message)s'
-                              ' [in %(pathname)s:%(lineno)d]')
-    logger_handler.setFormatter(formatter)
-    app.logger.addHandler(logger_handler)
+#    app.logger.setLevel(logging.WARNING)
+#    logger_handler = logging.FileHandler(os.path.join(app.config['LOG_LOCATION'],
+#                                                      'app_errors.log'))
+#    formatter = logging.Formatter('%(asctime)s  %(levelname)s - %(message)s'
+#                              ' [in %(pathname)s:%(lineno)d]')
+#    logger_handler.setFormatter(formatter)
+#    app.logger.addHandler(logger_handler)
 
 
     @app.teardown_request

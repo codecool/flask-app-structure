@@ -7,4 +7,7 @@ Home
 
 {% block content %}
 Welcome
+    {% if current_user.is_authenticated() %}
+    <a href="{{ url_for('users.logout') }}">Logout</a>
+    {% endif %}
 {% endblock %}

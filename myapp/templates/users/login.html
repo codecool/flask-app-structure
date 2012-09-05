@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% from 'forms.html' import render_field %}
+
+{% block content %}
+<form action="{{ url_for('users.login') }}" method="post">
+    {{ form.csrf_token }}
+    <dl>
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+    </dl>
+    <p> {{ form.submit }}</p>
+</form>
+{% endblock %}
